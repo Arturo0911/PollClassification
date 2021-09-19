@@ -9,11 +9,11 @@ class ResidualBlock(nn.Module):
         super(ResidualBlock, self).__init__()
 
         conv_block = [
-            nn.ReflectionPad2d(1), # best padding
+            nn.ReflectionPad2d(1),  # best padding
             nn.Conv2d(in_features, in_features, 3),
-            nn.InstanceNorm2d(in_features),
+            nn.InstanceNorm2d(in_features),  # Bn for GANS
             nn.ReLU(True),
-            nn.ReflectionPad2d(1),
+            nn.ReflectionPad2d(1),  # best for preserve the distribution
             nn.Conv2d(in_features, in_features, 3),
             nn.InstanceNorm2d(in_features)
         ]
