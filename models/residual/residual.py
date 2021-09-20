@@ -5,6 +5,12 @@ from torch.nn import functional as F
 
 
 class ResidualBlock(nn.Module):
+    """Takes an input with in_channels, applies some blocks
+    of convolutional layers to reduce it to out_channels and
+    sum it up to the original input. If their sizes mismatch,
+    then the input goes into an identity. We can abstract this
+    process and create an interface that can be extended."""
+
     def __init__(self, in_features: int):
         super(ResidualBlock, self).__init__()
 

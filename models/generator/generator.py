@@ -6,6 +6,7 @@ from models.residual.residual import ResidualBlock
 
 
 class Generator(nn.Module):
+    """This network send by the output and image"""
     def __init__(self, input_nc, output_nc, n_residual_blocks) -> None:
         super(Generator, self).__init__()
 
