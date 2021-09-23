@@ -1,11 +1,17 @@
 
 
-
+import os
 from typing import Any
 import torch
 from torch import nn
 from torchvision import datasets
 from torch.nn import functional as F
+from torch.utils.data import (
+    Dataset,
+    DataLoader
+)
+from PIL import Image
+
 
 
 class Net(nn.Module):
@@ -57,6 +63,28 @@ class Net(nn.Module):
         return x
 
 
+
+# mouting dataset
+class SIGNSDataset(Dataset):
+    def __init__(self, base_dir, split="train", transform=None):
+        path = os.path.join(base_dir, "{}_signs".format(split))
+        
+        files = os.listdir(path)
+        self.filenames = [os.path.join(path, f) for f in files if f.endswith(".jpg")]
+        self.targets = [int(f[0]) for f in files]
+        self.transform = transform
+    
+    def __len__(self):
+        return len(self.filenames)
+    
+    def __getitem__(self, idx):
+        image = Image.open(self.filenames[idx])
+        if self.transform:
+            image = self.transform(image)
+        
+        return image, self.targets[idx]
+
+
 def main():
     # x = torch.randn(3, 5)
     # y = torch.ones_like(x)
@@ -64,7 +92,9 @@ def main():
     # cifar = datasets.CIFAR10(".datasets", download=True)
     # data = torch.Tensor(cifar.data)
     # print(data.size())
-    pass
+    signs = SIGNSDataset(base_dir="datasets", split="train")
+    print(len(signs))
+    print(signs[0][0])
 
 
 if __name__ == "__main__":
