@@ -15,12 +15,12 @@ def reading_from_file():
         print(files)
         for x in files:
             vol_arr = imageio.imread(os.path.join(IMAGE_PATH, x))
-            print(f"shape: {vol_arr.shape}")
+            # print(f"shape: {vol_arr.shape}")
             tensor = torch.from_numpy(vol_arr).float()
             # print(f"\n dimensions {tensor.shape}\ntensor: \n\n{tensor}")
-            print(tensor[0])
-            print(len(tensor[0]))
-            break
+            # print(tensor[0])
+            # print(len(tensor[0]))
+            # break
     except Exception as e:
         print(str(e))
 
