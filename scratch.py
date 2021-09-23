@@ -20,9 +20,12 @@ def main():
             super(Net, self).__init__()
             self.num_channels = num_channels
 
-            self.conv1 = 
+            self.conv1 = nn.Conv2d(3, self.num_channels, 3, stride=1, padding=1)
             self.conv2 = 
             self.conv3 = 
+
+            self.fc1 = 
+            self.fc2 = 
 
 if __name__ == "__main__":
     main()
