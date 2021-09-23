@@ -10,6 +10,7 @@ scikit-learn = "*"
 torch = "*"
 torchvision = "*"
 torchaudio = "*"
+imageio = "*"
 
 [dev-packages]
 
