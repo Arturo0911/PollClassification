@@ -2,3 +2,11 @@ Pipfile
 Pipfile.lock
 summer2winter_yosemite
 data
+datasets
+*.jpg
+*.jpeg
+*.jpe
+*.jif
+*.jfif
+*.jfi
+.datasets
