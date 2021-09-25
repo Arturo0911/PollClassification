@@ -86,6 +86,13 @@ class SIGNSDataset(Dataset):
         return image, self.targets[idx]
 
 
+def main():
+    
+    signs = SIGNSDataset(base_dir="datasets", 
+                         split="train", 
+                         transform=transforms.ToTensor())
+    print(signs[0][0])
+
 
 class RunningMetric:
     def __init__(self):
@@ -101,47 +108,49 @@ class RunningMetric:
 
 
 
-def main():
-    signs = SIGNSDataset(base_dir="datasets", 
-                        split="train", 
-                        transform=transforms.ToTensor())
-
-    # deliver in batches to the neuron network
-    dataloader = DataLoader(signs, batch_size=32)
-
-    network = Net(32)
-    loss_function = nn.NLLLoss()
-    optimizer = optim.SGD(network.parameters(), lr=1e-3, momentum=0.9)
 
 
-    epochs = 100
-    for epoch in range(epochs):
-        print(f"Epoch => {epoch}/{epochs}")
+# def main():
+#     signs = SIGNSDataset(base_dir="datasets", 
+#                         split="train", 
+#                         transform=transforms.ToTensor())
 
-        running_loss = RunningMetric() # error ice in the network
-        running_acc = RunningMetric() # ice of the accuracy
+#     # deliver in batches to the neuron network
+#     dataloader = DataLoader(signs, batch_size=32)
 
-        for inputs, targets in dataloader:
-            # reload gradients to zero
-            # because in the last batch
-            # the gradients were modified
-            # insied the optimizer, so in the new batch
-            # there's to carry to zero
-            optimizer.zero_grad() 
+#     network = Net(32)
+#     loss_function = nn.NLLLoss()
+#     optimizer = optim.SGD(network.parameters(), lr=1e-3, momentum=0.9)
 
-            outputs = network(inputs)
-            _, preds = torch.max(outputs, 1)
-            loss = loss_function(outputs, targets)
-            loss.backward() #magias: gradientes calculados automaticamente
-            optimizer.step() #magia2: actualiza las perillas o los parametros
 
-            batch_size = inputs.size()[0]
-            running_loss.update(loss.item()*batch_size,
-                       batch_size)
-            running_acc.update(torch.sum(preds == targets).float(),
-                       batch_size)
+#     epochs = 100
+#     for epoch in range(epochs):
+#         print(f"Epoch => {epoch}/{epochs}")
 
-        print("Loss: {:.4f} Acc: {:.4f}".format(running_loss(), running_acc()))
+#         running_loss = RunningMetric() # error ice in the network
+#         running_acc = RunningMetric() # ice of the accuracy
+
+#         for inputs, targets in dataloader:
+#             # reload gradients to zero
+#             # because in the last batch
+#             # the gradients were modified
+#             # insied the optimizer, so in the new batch
+#             # there's to carry to zero
+#             optimizer.zero_grad() 
+
+#             outputs = network(inputs)
+#             _, preds = torch.max(outputs, 1)
+#             loss = loss_function(outputs, targets)
+#             loss.backward() #magias: gradientes calculados automaticamente
+#             optimizer.step() #magia2: actualiza las perillas o los parametros
+
+#             batch_size = inputs.size()[0]
+#             running_loss.update(loss.item()*batch_size,
+#                        batch_size)
+#             running_acc.update(torch.sum(preds == targets).float(),
+#                        batch_size)
+
+#         print("Loss: {:.4f} Acc: {:.4f}".format(running_loss(), running_acc()))
 
 
 
