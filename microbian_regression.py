@@ -91,7 +91,7 @@ def main():
 
     test_dataset = BacteriaDataset(torch.from_numpy(X_test).float(),
                                    torch.from_numpy(y_test).float())
-    
+
     # instancing dataloader
     data_loader = DataLoader(dataset=train_dataset, batch_size=1)
     test_loader = DataLoader(dataset=test_dataset, batch_size=1)
@@ -106,7 +106,7 @@ def main():
     try:
         for x in range(1, NUM_EPOCHS + 1):
             print(f"epochs => {x}/{NUM_EPOCHS}")
-            
+
             running_loss = RunningMetrics()
             running_acc = RunningMetrics()
 
