@@ -115,18 +115,18 @@ def main():
 
                 outputs = model(inputs)
                 # print(outputs.item())
-                """_, preds = torch.max(outputs, 1)
+                _, preds = torch.max(outputs, 1)
                 loss = criterion(outputs, targets)
                 loss.backward()
                 optimizer.step()
 
-                print(preds, outputs)"""
+                """print(preds, outputs)"""
                 # print(outputs.item())
                 # print(targets.unsqueeze(1))
 
                 loss = criterion(outputs, targets.unsqueeze(1))
                 print("\n\n loss value: ", loss)
-                raise StopIteration
+                # raise StopIteration
     except Exception as e:
         print(str(e))
 
